@@ -41,6 +41,8 @@
     "@nestjs/core": "^7.6.5",
     "@nestjs/platform-express": "^7.6.5",
     "@nrwl/angular": "^11.1.5",
+    "@sentry/angular": "^6.0.1",
+    "@sentry/tracing": "^6.0.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.2.0",
