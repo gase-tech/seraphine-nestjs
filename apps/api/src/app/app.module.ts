@@ -1,18 +1,19 @@
-import { classes } from '@automapper/classes';
-import { AutomapperModule } from '@automapper/nestjs';
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { User } from './user/models/user.entity';
-import { UsersModule } from './user/users.module';
+import { classes } from "@automapper/classes";
+import { AutomapperModule } from "@automapper/nestjs";
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { APP_GUARD } from "@nestjs/core";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from "./auth/jwt-auth.guard";
+import { User } from "./user/models/user.entity";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: "mysql",
       host: process.env.DATABASE_HOST,
       port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USER,
@@ -21,13 +22,18 @@ import { UsersModule } from './user/users.module';
       entities: [User],
       synchronize: true,
     }),
-    UsersModule,
     AutomapperModule.forRoot({
-      options: [{ name: 'immino', pluginInitializer: classes }],
+      options: [{ name: "immino", pluginInitializer: classes }],
       singular: true,
     }),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
+  ],
 })
 export class AppModule {}

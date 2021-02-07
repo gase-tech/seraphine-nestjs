@@ -1,4 +1,4 @@
-import { AutoMap } from '@automapper/classes';
+import { AutoMap } from "@automapper/classes";
 
 export class UserDto {
   @AutoMap()
@@ -6,6 +6,12 @@ export class UserDto {
 
   @AutoMap()
   username: string;
+
+  @AutoMap()
+  password: string;
+
+  @AutoMap()
+  email: string;
 
   @AutoMap()
   firstName: string;

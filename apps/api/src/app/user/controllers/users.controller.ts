@@ -1,9 +1,11 @@
+import { mapFrom } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/types';
 import { Body, Controller, Delete, Get, Param, Post, Put, } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { LoginResource } from '../../auth/models/login.resource';
 import { UserDto } from '../models/user.dto';
 import { User } from '../models/user.entity';
 import { UserResource } from '../models/user.resource';
@@ -13,7 +15,12 @@ import { UserService } from '../services/user.service'
 export class UsersController {
   constructor(private readonly userService: UserService, @InjectMapper() private mapper: Mapper) {
     mapper.createMap(UserDto, User);
-    mapper.createMap(User, UserResource);
+    // .forMember(
+    //   obj => obj.password,
+    //   mapFrom((source: UserDto) => authService.hashPasswordSync(source.password))
+    // );
+    mapper.createMap(User, UserResource)
+      .forMember(userResource => userResource.fullName, mapFrom(user => `${user.firstName} ${user.lastName}`));
   }
 
   @Post()
@@ -31,15 +38,25 @@ export class UsersController {
       .pipe(map((user: User) => this.mapper.map(user, UserResource, User)));
   }
 
+  @Get(':username')
+  findOneByUsername(@Param('username') username: string): Observable<UserResource> {
+    return this.userService
+      .findOneByUsername(username)
+      .pipe(map((user: User) => this.mapper.map(user, UserResource, User)));
+  }
+
+  @Get(':email')
+  findOneByEmail(@Param('email') username: string): Observable<UserResource> {
+    return this.userService
+      .findOneByEmail(username)
+      .pipe(map((user: User) => this.mapper.map(user, UserResource, User)));
+  }
+
   @Get()
   findAll(): Observable<UserResource[]> {
     return this.userService
       .findAll()
-      .pipe(
-        map((user: Array<User>) =>
-          this.mapper.mapArray(user, UserResource, User)
-        )
-      );
+      .pipe(map((user: Array<User>) => this.mapper.mapArray(user, UserResource, User)));
   }
 
   @Put(':id')
@@ -51,5 +68,11 @@ export class UsersController {
   @Delete(':id')
   deleteOne(@Param('id') id: number): Observable<DeleteResult> {
     return this.userService.delete(id);
+  }
+
+  @Post("login")
+  login(@Body() userDto: UserDto): Observable<LoginResource> {
+    const user = this.mapper.map(userDto, User, UserDto);
+    return this.userService.login(user);
   }
 }

@@ -1,4 +1,4 @@
-import { AutoMap } from '@automapper/classes';
+import { AutoMap } from "@automapper/classes";
 
 export class UserResource {
   @AutoMap()
@@ -6,6 +6,9 @@ export class UserResource {
 
   @AutoMap()
   username: string;
+
+  @AutoMap()
+  email: string;
 
   @AutoMap()
   firstName: string;

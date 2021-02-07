@@ -1,5 +1,5 @@
 import { AutoMap } from '@automapper/classes';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 
 @Entity()
 export class User {
@@ -12,6 +12,9 @@ export class User {
   username: string;
 
   @AutoMap()
+  email: string;
+
+  @AutoMap()
   @Column()
   firstName: string;
 
@@ -19,6 +22,8 @@ export class User {
   @Column()
   lastName: string;
 
+  @Column()
+  @AutoMap()
   password: string;
 
   @AutoMap()
@@ -28,4 +33,11 @@ export class User {
   @AutoMap()
   @Column({ default: true })
   isActive: boolean;
+
+  @BeforeInsert()
+  emailToLowerCase() {
+    if (this.email) {
+      this.email = this.email.toLowerCase();
+    }
+  }
 }
