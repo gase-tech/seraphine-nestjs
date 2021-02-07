@@ -22,10 +22,10 @@
             ],
             "styles": [
               "apps/web/src/styles.scss",
-              "node_modules/primeng/resources/themes/saga-orange/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeflex/primeflex.css"
+              "./node_modules/primeng/resources/themes/saga-orange/theme.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },

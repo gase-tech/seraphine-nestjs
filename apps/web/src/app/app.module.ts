@@ -1,20 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, RouterModule } from '@angular/router';
 import * as Sentry from '@sentry/angular';
+import { AppComponent } from './app.component';
+import { SessionComponent } from './session/session.component';
+import { LoginComponent } from './login/login.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SessionComponent, LoginComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule.forRoot([{ path: '', component: AppComponent }]),
+    ButtonModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        loadChildren: () =>
+          import('./session/session.module').then((m) => m.SessionModule),
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+    ]),
   ],
   providers: [
     {
@@ -29,6 +43,7 @@ import * as Sentry from '@sentry/angular';
     },
     {
       provide: APP_INITIALIZER,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       useFactory: () => () => {},
       deps: [Sentry.TraceService],
       multi: true,
