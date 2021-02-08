@@ -1,7 +1,8 @@
-import { AutoMap } from '@automapper/classes';
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { AutoMap } from "@automapper/classes";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn, Unique, VersionColumn } from "typeorm";
 
 @Entity()
+@Unique(["username", "email"])
 export class User {
   @AutoMap()
   @PrimaryGeneratedColumn()
@@ -12,6 +13,7 @@ export class User {
   username: string;
 
   @AutoMap()
+  @Column({default: null})
   email: string;
 
   @AutoMap()
@@ -33,6 +35,9 @@ export class User {
   @AutoMap()
   @Column({ default: true })
   isActive: boolean;
+
+  @VersionColumn()
+  version: number;
 
   @BeforeInsert()
   emailToLowerCase() {

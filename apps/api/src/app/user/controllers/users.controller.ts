@@ -5,7 +5,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, } from '@nestjs/common
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { LoginResource } from '../../auth/models/login.resource';
 import { UserDto } from '../models/user.dto';
 import { User } from '../models/user.entity';
 import { UserResource } from '../models/user.resource';
@@ -15,10 +14,6 @@ import { UserService } from '../services/user.service'
 export class UsersController {
   constructor(private readonly userService: UserService, @InjectMapper() private mapper: Mapper) {
     mapper.createMap(UserDto, User);
-    // .forMember(
-    //   obj => obj.password,
-    //   mapFrom((source: UserDto) => authService.hashPasswordSync(source.password))
-    // );
     mapper.createMap(User, UserResource)
       .forMember(userResource => userResource.fullName, mapFrom(user => `${user.firstName} ${user.lastName}`));
   }
@@ -68,11 +63,5 @@ export class UsersController {
   @Delete(':id')
   deleteOne(@Param('id') id: number): Observable<DeleteResult> {
     return this.userService.delete(id);
-  }
-
-  @Post("login")
-  login(@Body() userDto: UserDto): Observable<LoginResource> {
-    const user = this.mapper.map(userDto, User, UserDto);
-    return this.userService.login(user);
   }
 }

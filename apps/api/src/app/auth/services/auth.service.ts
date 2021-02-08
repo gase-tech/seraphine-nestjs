@@ -1,26 +1,27 @@
 import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from "bcrypt";
-import { from, Observable } from "rxjs";
-import { User } from "../../user/models/user.entity";
+import { Observable } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
+import { JwtUtilsService } from "../../jwt-utils/jwt-utils.service";
+import { UserService } from "../../user/services/user.service";
+import { LoginDto } from "../models/login.dto";
+import { LoginResource } from "../models/login.resource";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
-
-  generateJWT(user: User): Observable<string> {
-    return from(this.jwtService.signAsync({ user }));
+  constructor(private userService: UserService, private jwtUtilsService: JwtUtilsService) {
   }
 
-  hashPassword(password: string): Observable<string> {
-    return from(bcrypt.hash(password, 12));
-  }
-
-  hashPasswordSync(password: string): string {
-    return bcrypt.hashSync(password, 12);
-  }
-
-  comparePasswords(newPassword: string, hashedPassword: string): Observable<boolean> {
-    return from(bcrypt.compare(newPassword, hashedPassword));
+  login(loginDto: LoginDto): Observable<LoginResource> {
+    return this.userService.validateUser(loginDto.username, loginDto.password).pipe(
+      switchMap(validatedUser => {
+        if (validatedUser) {
+          return this.jwtUtilsService.generateJWT(validatedUser).pipe(
+            map(jwt => ({ access_token: jwt }))
+          );
+        } else {
+          throw Error("User Validation Error");
+        }
+      })
+    );
   }
 }

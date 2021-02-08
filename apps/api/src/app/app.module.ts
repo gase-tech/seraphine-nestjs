@@ -2,10 +2,8 @@ import { classes } from "@automapper/classes";
 import { AutomapperModule } from "@automapper/nestjs";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 import { User } from "./user/models/user.entity";
 import { UserModule } from "./user/user.module";
 
