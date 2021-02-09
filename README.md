@@ -2,6 +2,8 @@
 
 This project was generated using [Nx](https://nx.dev).
 
+For build tracking (https://kstech.beta.teamcity.com/)
+
 ## Development
 
 #### Requirements
