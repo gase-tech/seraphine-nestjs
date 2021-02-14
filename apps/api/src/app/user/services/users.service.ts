@@ -7,7 +7,7 @@ import { JwtUtilsService } from "../../auth/jwt-utils/jwt-utils.service";
 import { User } from "../models/user.entity";
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
     private readonly jwtUtilsService: JwtUtilsService

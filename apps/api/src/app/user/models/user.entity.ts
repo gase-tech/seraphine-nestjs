@@ -1,5 +1,6 @@
 import { AutoMap } from "@automapper/classes";
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn, Unique, VersionColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { Session } from '../../sessions/models/entity/session.entity';
 
 @Entity()
 @Unique(["username", "email"])
@@ -38,6 +39,17 @@ export class User {
 
   @VersionColumn()
   version: number;
+
+  // @AutoMap() // TODO: uncomment this
+  @Column()
+  @OneToMany(() => Session, session => session.createdBy)
+  sessions: Array<Session>;
+
+  @CreateDateColumn()
+  createDate: Date;
+
+  @UpdateDateColumn()
+  updateDate: Date;
 
   @BeforeInsert()
   emailToLowerCase() {

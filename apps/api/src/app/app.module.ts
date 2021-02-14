@@ -4,6 +4,8 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from './auth/auth.module';
+import { Session } from './sessions/models/entity/session.entity';
+import { SessionsModule } from './sessions/sessions.module';
 import { User } from "./user/models/user.entity";
 import { UserModule } from "./user/user.module";
 
@@ -17,13 +19,14 @@ import { UserModule } from "./user/user.module";
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_SCHEMA,
-      entities: [User],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     AutomapperModule.forRoot({
       options: [{ name: "immino", pluginInitializer: classes }],
       singular: true,
     }),
+    SessionsModule,
     UserModule,
     AuthModule,
   ],
