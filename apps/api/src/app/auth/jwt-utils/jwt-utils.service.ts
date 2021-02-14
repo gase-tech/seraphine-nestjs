@@ -1,14 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { from, Observable } from "rxjs";
-import { User } from "../user/models/user.entity";
+import { User } from "../../user/models/user.entity";
 
 @Injectable()
 export class JwtUtilsService {
-
-  constructor(private readonly jwtService: JwtService, ) {
-  }
+  constructor(private readonly jwtService: JwtService) {}
 
   generateJWT(user: User): Observable<string> {
     return from(this.jwtService.signAsync({ user }));
@@ -22,7 +20,10 @@ export class JwtUtilsService {
     return bcrypt.hashSync(password, 12);
   }
 
-  comparePasswords(newPassword: string, hashedPassword: string): Observable<boolean> {
+  comparePasswords(
+    newPassword: string,
+    hashedPassword: string
+  ): Observable<boolean> {
     return from(bcrypt.compare(newPassword, hashedPassword));
   }
 }

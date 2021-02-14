@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { from, Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
 import { DeleteResult, Repository, UpdateResult } from "typeorm";
-import { JwtUtilsService } from "../../jwt-utils/jwt-utils.service";
+import { JwtUtilsService } from "../../auth/jwt-utils/jwt-utils.service";
 import { User } from "../models/user.entity";
 
 @Injectable()

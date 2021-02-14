@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { JwtUtilsService } from "../../jwt-utils/jwt-utils.service";
+import { JwtUtilsService } from "../jwt-utils/jwt-utils.service";
 import { UserService } from "../../user/services/user.service";
 import { LoginDto } from "../models/login.dto";
 import { LoginResource } from "../models/login.resource";
