@@ -4,14 +4,11 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import { User } from "../../../user/models/user.entity";
-import { Answer } from './answer.entity';
-import { Session } from "./session.entity";
+} from "typeorm";
+import { QuestionAnswer } from "./question-answer.entity";
 
 @Entity()
 export class Question {
@@ -19,6 +16,7 @@ export class Question {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
   text: string;
 
   @AutoMap()
@@ -29,17 +27,18 @@ export class Question {
   @UpdateDateColumn()
   updateDate: Date;
 
-  createdBy: User;
+  @OneToOne(() => QuestionAnswer)
+  @JoinColumn()
+  questionAnswer: QuestionAnswer;
+
+  // @ManyToOne(() => User, user => user.questions)
+  // createdBy: User;
 
   // options: Array<Option>;
 
-  @ManyToOne(() => Session, (session) => session.questions)
-  @Column()
-  session: Session;
-
-  @OneToOne(() => Answer)
-  @JoinColumn()
-  answer: Answer;
+  // @ManyToOne(() => Session, (session) => session.questions)
+  // @Column()
+  // session: Session;
 
   // @OneToOne(() => QuestionType)
   // @JoinColumn()

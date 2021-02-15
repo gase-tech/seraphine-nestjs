@@ -1,16 +1,14 @@
 import { AutoMap } from "@automapper/classes";
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
   VersionColumn,
 } from "typeorm";
 import { User } from "../../../user/models/user.entity";
-import { Question } from "./question.entity";
+import { QuestionAnswer } from "./question-answer.entity";
 
 @Entity()
 export class Session {
@@ -18,37 +16,42 @@ export class Session {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @AutoMap()
-  @Column()
-  description: string;
-
-  @CreateDateColumn()
-  createDate: Date;
-
-  @UpdateDateColumn()
-  updateDate: Date;
+  // @AutoMap()
+  // @Column()
+  // description: string;
+  //
+  // @CreateDateColumn()
+  // createDate: Date;
+  //
+  // @UpdateDateColumn()
+  // updateDate: Date;
 
   // @AutoMap() // TODO: uncomment this, typeorm'de audit nasil yapilir arastirilacak.
-  @Column()
-  @ManyToOne(() => User, (user) => user.sessions)
+  @ManyToOne(() => User, user => user.sessions)
   createdBy: User;
 
-  @AutoMap()
-  @Column()
-  startDate: Date;
-
-  @AutoMap()
-  @Column()
-  endDate: Date;
+  // @Column()
+  // meetingStartTime: Date;
+  //
+  // @Column()
+  // meetingEndTime: Date;
+  //
+  // @Column()
+  // sessionStartTime: Date;
+  //
+  // @Column()
+  // sessionEndTime: Date;
+  //
+  // @Column()
+  // duration: number;
 
   // TODO: uncomment this after if createdBy ManyToOne relation is successful
   // @AutoMap()
   // @Column()
-  // participants: Array<User>;
+  // participants: string[];
 
-  @Column()
-  @OneToMany(() => Question, (question) => question.answer)
-  questions: Array<Question>;
+  @OneToMany(() => QuestionAnswer, (questionAnswer) => questionAnswer.session)
+  questionAnswers: QuestionAnswer[];
 
   @VersionColumn()
   version: number;

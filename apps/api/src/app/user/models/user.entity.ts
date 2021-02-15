@@ -1,9 +1,18 @@
 import { AutoMap } from "@automapper/classes";
-import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn, VersionColumn } from 'typeorm';
-import { Session } from '../../sessions/models/entity/session.entity';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  VersionColumn,
+} from "typeorm";
+import { Question } from "../../sessions/models/entity/question.entity";
+import { Session } from "../../sessions/models/entity/session.entity";
 
 @Entity()
-@Unique(["username", "email"])
 export class User {
   @AutoMap()
   @PrimaryGeneratedColumn()
@@ -14,7 +23,7 @@ export class User {
   username: string;
 
   @AutoMap()
-  @Column({default: null})
+  @Column({ default: null })
   email: string;
 
   @AutoMap()
@@ -40,10 +49,10 @@ export class User {
   @VersionColumn()
   version: number;
 
-  // @AutoMap() // TODO: uncomment this
-  @Column()
-  @OneToMany(() => Session, session => session.createdBy)
-  sessions: Array<Session>;
+  @OneToMany(() => Session, (session) => session.createdBy)
+  sessions: Session[];
+
+  questions: Question[];
 
   @CreateDateColumn()
   createDate: Date;
