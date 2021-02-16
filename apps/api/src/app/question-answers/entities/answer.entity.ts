@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { User } from "../../user/models/user.entity";
+import { User } from "../../users/models/user.entity";
 
 @Entity()
 export class Answer {

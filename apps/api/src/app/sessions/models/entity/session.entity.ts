@@ -10,8 +10,8 @@ import {
   UpdateDateColumn,
   VersionColumn,
 } from "typeorm";
-import { User } from "../../../user/models/user.entity";
-import { QuestionAnswer } from "../../../questions/entities/question-answer.entity";
+import { User } from "../../../users/models/user.entity";
+import { QuestionAnswer } from "../../../question-answers/entities/question-answer.entity";
 
 @Entity()
 export class Session {

@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { QuestionAnswer } from "./question-answer.entity";
+import { QuestionAnswer } from "../../question-answers/entities/question-answer.entity";
 
 @Entity()
 export class Question {

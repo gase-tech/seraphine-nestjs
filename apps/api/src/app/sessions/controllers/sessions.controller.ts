@@ -2,9 +2,9 @@ import { mapFrom } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/types';
 import { Controller, Post, Body} from '@nestjs/common';
-import { QuestionAnswer } from '../../questions/entities/question-answer.entity';
+import { QuestionAnswer } from '../../question-answers/entities/question-answer.entity';
 import { Session } from '../models/entity/session.entity';
-import { QuestionAnswerDto } from '../../questions/dto/question-answer.dto';
+import { QuestionAnswerDto } from '../../question-answers/dto/question-answer.dto';
 import { SessionsService } from '../services/sessions.service';
 import { CreateSessionDto } from '../models/create-session.dto';
 
