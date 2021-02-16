@@ -1,34 +1,38 @@
 import { classes } from "@automapper/classes";
 import { AutomapperModule } from "@automapper/nestjs";
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AuthModule } from './auth/auth.module';
-import { Session } from './sessions/models/entity/session.entity';
-import { SessionsModule } from './sessions/sessions.module';
-import { User } from "./user/models/user.entity";
+import { AuthModule } from "./auth/auth.module";
+import { QuestionsModule } from './questions/questions.module';
+import { SessionsModule } from "./sessions/sessions.module";
 import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: "mysql",
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_SCHEMA,
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: "mysql",
+        host: configService.get("DATABASE_HOST"),
+        port: configService.get("DATABASE_PORT"),
+        username: configService.get("DATABASE_USER"),
+        password: configService.get("DATABASE_PASSWORD"),
+        database: configService.get("DATABASE_SCHEMA"),
+        autoLoadEntities: true,
+        synchronize: true,
+      })
     }),
     AutomapperModule.forRoot({
       options: [{ name: "immino", pluginInitializer: classes }],
       singular: true,
     }),
-    SessionsModule,
-    UserModule,
     AuthModule,
+    UserModule,
+    SessionsModule,
+    QuestionsModule,
   ],
   providers: [
     // {

@@ -1,6 +1,6 @@
 import { AutoMap } from "@automapper/classes";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Session } from "./session.entity";
+import { Session } from "../../sessions/models/entity/session.entity";
 
 @Entity()
 export class QuestionAnswer {

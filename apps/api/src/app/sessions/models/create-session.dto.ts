@@ -1,6 +1,6 @@
 import { AutoMap } from "@automapper/classes";
 import { UserDto } from "../../user/models/user.dto";
-import { QuestionAnswerDto } from "./question-answer.dto";
+import { QuestionAnswerDto } from "../../questions/dto/question-answer.dto";
 
 export class CreateSessionDto {
   @AutoMap()

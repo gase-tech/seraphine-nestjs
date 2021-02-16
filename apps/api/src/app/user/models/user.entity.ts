@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
   VersionColumn,
 } from "typeorm";
-import { Question } from "../../sessions/models/entity/question.entity";
+import { Question } from "../../questions/entities/question.entity";
 import { Session } from "../../sessions/models/entity/session.entity";
 
 @Entity()

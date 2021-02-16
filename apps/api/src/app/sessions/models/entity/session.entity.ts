@@ -11,7 +11,7 @@ import {
   VersionColumn,
 } from "typeorm";
 import { User } from "../../../user/models/user.entity";
-import { QuestionAnswer } from "./question-answer.entity";
+import { QuestionAnswer } from "../../../questions/entities/question-answer.entity";
 
 @Entity()
 export class Session {
