@@ -13,7 +13,7 @@ import { QuestionAnswer } from "./question-answer.entity";
 @Entity()
 export class Question {
   @AutoMap()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column()
@@ -21,11 +21,11 @@ export class Question {
 
   @AutoMap()
   @CreateDateColumn()
-  createDate: Date;
+  createdDate: Date;
 
   @AutoMap()
   @UpdateDateColumn()
-  updateDate: Date;
+  updatedDate: Date;
 
   @OneToOne(() => QuestionAnswer)
   @JoinColumn()

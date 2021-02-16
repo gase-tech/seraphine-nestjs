@@ -5,7 +5,7 @@ import { Session } from "./session.entity";
 @Entity()
 export class QuestionAnswer {
   @AutoMap()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column()

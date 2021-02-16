@@ -1,10 +1,13 @@
 import { AutoMap } from "@automapper/classes";
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
   VersionColumn,
 } from "typeorm";
 import { User } from "../../../user/models/user.entity";
@@ -12,44 +15,54 @@ import { QuestionAnswer } from "./question-answer.entity";
 
 @Entity()
 export class Session {
-  @AutoMap()
-  @PrimaryGeneratedColumn()
+
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
-  // @AutoMap()
-  // @Column()
-  // description: string;
-  //
-  // @CreateDateColumn()
-  // createDate: Date;
-  //
-  // @UpdateDateColumn()
-  // updateDate: Date;
+  @AutoMap()
+  @Column({nullable: true})
+  description: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
+
+  @DeleteDateColumn()
+  deletedDate: Date;
 
   // @AutoMap() // TODO: uncomment this, typeorm'de audit nasil yapilir arastirilacak.
+  @AutoMap()
   @ManyToOne(() => User, user => user.sessions)
   createdBy: User;
 
-  // @Column()
-  // meetingStartTime: Date;
-  //
-  // @Column()
-  // meetingEndTime: Date;
-  //
-  // @Column()
-  // sessionStartTime: Date;
-  //
-  // @Column()
-  // sessionEndTime: Date;
-  //
-  // @Column()
-  // duration: number;
+  @AutoMap()
+  @Column({nullable: true})
+  meetingStartTime: Date;
+
+  @AutoMap()
+  @Column({nullable: true})
+  meetingEndTime: Date;
+
+  @AutoMap()
+  @Column({nullable: true})
+  sessionStartTime: Date;
+
+  @AutoMap()
+  @Column({nullable: true})
+  sessionEndTime: Date;
+
+  @AutoMap()
+  @Column({nullable: true})
+  duration: number;
 
   // TODO: uncomment this after if createdBy ManyToOne relation is successful
   // @AutoMap()
   // @Column()
   // participants: string[];
 
+  @AutoMap()
   @OneToMany(() => QuestionAnswer, (questionAnswer) => questionAnswer.session)
   questionAnswers: QuestionAnswer[];
 
@@ -67,7 +80,7 @@ export class Session {
 // @Entity()
 // export class Option {
 //   @AutoMap()
-//   @PrimaryGeneratedColumn()
+//   @PrimaryGeneratedColumn("uuid")
 //   id: number;
 //
 //   value: string;
@@ -76,7 +89,7 @@ export class Session {
 // @Entity()
 // export class QuestionType {
 //   @AutoMap()
-//   @PrimaryGeneratedColumn()
+//   @PrimaryGeneratedColumn("uuid")
 //   id: number;
 //
 //   displayValue: string;

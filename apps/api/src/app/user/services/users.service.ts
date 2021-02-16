@@ -22,16 +22,16 @@ export class UsersService {
     return from(this.usersRepository.findOne(id));
   }
 
-  findOneByUsername(username: string): Observable<User> {
-    return from(this.usersRepository.findOne({ username }));
+  findOneByUsername(username: string) {
+    return from(this.usersRepository.findOneOrFail({ username }));
   }
 
   findOneByEmail(email: string): Observable<User> {
-    return from(this.usersRepository.findOne({ email }));
+    return from(this.usersRepository.findOneOrFail({ email }));
   }
 
   delete(id: number): Observable<DeleteResult> {
-    return from(this.usersRepository.delete(id));
+    return from(this.usersRepository.delete(id)); // TODO: soft delete?
   }
 
   updateOne(id: number, user: User): Observable<UpdateResult> {

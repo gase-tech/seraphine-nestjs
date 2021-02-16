@@ -15,7 +15,7 @@ import { Session } from "../../sessions/models/entity/session.entity";
 @Entity()
 export class User {
   @AutoMap()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @AutoMap()
@@ -55,10 +55,10 @@ export class User {
   questions: Question[];
 
   @CreateDateColumn()
-  createDate: Date;
+  createdDate: Date;
 
   @UpdateDateColumn()
-  updateDate: Date;
+  updatedDate: Date;
 
   @BeforeInsert()
   emailToLowerCase() {

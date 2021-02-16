@@ -10,16 +10,16 @@ import { User } from "../../../user/models/user.entity";
 @Entity()
 export class Answer {
   @AutoMap()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @AutoMap()
   @CreateDateColumn()
-  createDate: Date;
+  createdDate: Date;
 
   @AutoMap()
   @UpdateDateColumn()
-  updateDate: Date;
+  updatedDate: Date;
 
   createdBy: User;
 }

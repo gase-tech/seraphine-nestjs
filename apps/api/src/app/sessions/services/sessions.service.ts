@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSessionDto } from '../models/create-session.dto';
-import { UpdateSessionDto } from '../models/update-session.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { from } from 'rxjs';
+import { Repository } from 'typeorm';
+import { Session } from '../models/entity/session.entity';
 
 @Injectable()
 export class SessionsService {
-  create(createSessionDto: CreateSessionDto) {
-    return 'This action adds a new session';
+  constructor(@InjectRepository(Session) private readonly sessionRepository: Repository<Session>) {
+  }
+
+  create(session: Session) {
+    return from(this.sessionRepository.save(session));
   }
 
   findAll() {
-    return `This action returns all sessions`;
+    const findAll = this.sessionRepository.find();
+    return from(findAll);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} session`;
+    return from(this.sessionRepository.findOne(id));
   }
 
-  update(id: number, updateSessionDto: UpdateSessionDto) {
-    return `This action updates a #${id} session`;
+  update(id: number, session: Session) {
+    return from(this.sessionRepository.update(id, session));
   }
 
   remove(id: number) {
-    return `This action removes a #${id} session`;
+    return from(this.sessionRepository.softDelete({id}));
   }
 }
