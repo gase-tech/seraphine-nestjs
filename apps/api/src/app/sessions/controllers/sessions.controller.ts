@@ -16,10 +16,13 @@ export class SessionsController {
   ) {
     mapper.createMap(CreateSessionDto, Session)
       .forMember(
-        session => session.questionAnswers,
-        mapFrom(createSessionDto => createSessionDto.questionAnswers)
+        session => session.createdBy,
+        mapFrom(createSessionDto => createSessionDto.createdBy)
       );
-    mapper.createMap(QuestionAnswerDto, QuestionAnswer);
+      // .forMember(
+      //   session => session.questionAnswers,
+      //   mapFrom(createSessionDto => createSessionDto.questionAnswers)
+      // ); // TODO: buraya bir bakilacak
   }
 
   @Post()

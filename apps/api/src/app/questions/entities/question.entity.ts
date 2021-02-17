@@ -3,12 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { QuestionAnswer } from "../../question-answers/entities/question-answer.entity";
+import { User } from "../../users/models/user.entity";
 
 @Entity()
 export class Question {
@@ -16,23 +15,19 @@ export class Question {
   @PrimaryGeneratedColumn("uuid")
   id: number;
 
+  @AutoMap()
   @Column()
   text: string;
 
-  @AutoMap()
   @CreateDateColumn()
   createdDate: Date;
 
-  @AutoMap()
   @UpdateDateColumn()
   updatedDate: Date;
 
-  @OneToOne(() => QuestionAnswer)
-  @JoinColumn()
-  questionAnswer: QuestionAnswer;
-
-  // @ManyToOne(() => User, user => user.questions)
-  // createdBy: User;
+  @AutoMap()
+  @ManyToOne(() => User, user => user.questions)
+  createdBy: User;
 
   // options: Array<Option>;
 

@@ -15,7 +15,6 @@ import { QuestionAnswer } from "../../../question-answers/entities/question-answ
 
 @Entity()
 export class Session {
-
   @PrimaryGeneratedColumn("uuid")
   id: number;
 

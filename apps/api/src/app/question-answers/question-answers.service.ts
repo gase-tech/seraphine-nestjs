@@ -1,25 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { QuestionAnswer } from './entities/question-answer.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { from } from "rxjs";
+import { Repository } from "typeorm";
+import { QuestionAnswer } from "./entities/question-answer.entity";
 
 @Injectable()
 export class QuestionAnswersService {
+  constructor(
+    @InjectRepository(QuestionAnswer)
+    private readonly questionAnswerRepository: Repository<QuestionAnswer>
+  ) {}
+
   create(questionAnswer: QuestionAnswer) {
-    return 'This action adds a new questionAnswer';
+    return from(this.questionAnswerRepository.save(questionAnswer));
   }
 
   findAll() {
-    return `This action returns all questionAnswers`;
+    return from(this.questionAnswerRepository.find());
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} questionAnswer`;
+    return from(this.questionAnswerRepository.findOne({ id }));
   }
 
   update(id: number, questionAnswer: QuestionAnswer) {
-    return `This action updates a #${id} questionAnswer`;
+    return from(this.questionAnswerRepository.update(id, questionAnswer));
   }
 
   remove(id: number) {
-    return `This action removes a #${id} questionAnswer`;
+    return from(this.questionAnswerRepository.delete({ id }));
   }
 }
