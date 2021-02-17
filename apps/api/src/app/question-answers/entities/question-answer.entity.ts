@@ -9,14 +9,17 @@ export class QuestionAnswer {
   @PrimaryGeneratedColumn("uuid")
   id: number;
 
+  @AutoMap(() => Question)
   @OneToOne(() => Question)
   @JoinColumn()
   question: Question;
 
-  @Column()
+  @AutoMap()
+  @Column({nullable: true})
   optionId: number;
 
-  @Column()
+  @AutoMap()
+  @Column({nullable: true})
   answer: string;
 
   @ManyToOne(() => Session, session => session.questionAnswers)

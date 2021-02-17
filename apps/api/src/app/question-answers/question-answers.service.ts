@@ -12,6 +12,7 @@ export class QuestionAnswersService {
   ) {}
 
   create(questionAnswer: QuestionAnswer) {
+    console.log(questionAnswer);
     return from(this.questionAnswerRepository.save(questionAnswer));
   }
 
