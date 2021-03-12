@@ -20,10 +20,7 @@ export class JwtUtilsService {
     return bcrypt.hashSync(password, 12);
   }
 
-  comparePasswords(
-    newPassword: string,
-    hashedPassword: string
-  ): Observable<boolean> {
+  comparePasswords(newPassword: string, hashedPassword: string): Observable<boolean> {
     return from(bcrypt.compare(newPassword, hashedPassword));
   }
 }

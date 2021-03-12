@@ -1,4 +1,3 @@
-import { mapFrom } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/types';
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
@@ -13,16 +12,6 @@ export class QuestionsController {
     private readonly questionsService: QuestionsService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {
-    mapper.createMap(CreateQuestionDto, Question)
-      .forMember(
-        question => question.createdBy,
-        mapFrom(createQuestionDto => createQuestionDto.createdBy),
-      );
-    mapper.createMap(UpdateQuestionDto, Question)
-      .forMember(
-        question => question.createdBy,
-        mapFrom(updateQuestionDto => updateQuestionDto.createdBy),
-      );
   }
 
   @Post()

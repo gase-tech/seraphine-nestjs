@@ -1,34 +1,25 @@
-import { mapFrom } from '@automapper/core';
-import { InjectMapper } from '@automapper/nestjs';
-import { Mapper } from '@automapper/types';
-import { Controller, Post, Body} from '@nestjs/common';
-import { QuestionAnswer } from '../../question-answers/entities/question-answer.entity';
-import { Session } from '../models/entity/session.entity';
-import { QuestionAnswerDto } from '../../question-answers/dto/question-answer.dto';
-import { SessionsService } from '../services/sessions.service';
-import { CreateSessionDto } from '../models/create-session.dto';
+import { InjectMapper } from "@automapper/nestjs";
+import { Mapper } from "@automapper/types";
+import { Body, Controller, Post } from "@nestjs/common";
+import { CreateSessionDto } from "../models/create-session.dto";
+import { Session } from "../models/entity/session.entity";
+import { SessionsService } from "../services/sessions.service";
 
 @Controller("sessions")
 export class SessionsController {
   constructor(
     private readonly sessionsService: SessionsService,
-    @InjectMapper() private readonly mapper: Mapper,
-  ) {
-    mapper.createMap(CreateSessionDto, Session)
-      .forMember(
-        session => session.createdBy,
-        mapFrom(createSessionDto => createSessionDto.createdBy)
-      );
-      // .forMember(
-      //   session => session.questionAnswers,
-      //   mapFrom(createSessionDto => createSessionDto.questionAnswers)
-      // ); // TODO: buraya bir bakilacak
-  }
+    @InjectMapper() private readonly mapper: Mapper
+  ) {}
 
   @Post()
   create(@Body() createSessionDto: CreateSessionDto) {
-    const session = this.mapper.map(createSessionDto, Session, CreateSessionDto);
-    console.log({session});
+    const session = this.mapper.map(
+      createSessionDto,
+      Session,
+      CreateSessionDto
+    );
+    console.log({ session });
     return this.sessionsService.create(session);
   }
 

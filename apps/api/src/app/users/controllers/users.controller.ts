@@ -1,4 +1,3 @@
-import { mapFrom } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/types';
 import { Body, Controller, Delete, Get, Param, Post, Put, } from '@nestjs/common';
@@ -13,9 +12,6 @@ import { UsersService } from '../services/users.service'
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService, @InjectMapper() private mapper: Mapper) {
-    mapper.createMap(UserDto, User);
-    mapper.createMap(User, UserResource)
-      .forMember(userResource => userResource.fullName, mapFrom(user => `${user.firstName} ${user.lastName}`));
   }
 
   @Post()

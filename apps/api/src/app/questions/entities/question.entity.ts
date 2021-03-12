@@ -13,21 +13,21 @@ import { User } from "../../users/models/user.entity";
 export class Question {
   @AutoMap()
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id?: number;
 
   @AutoMap()
   @Column()
   text: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  createdDate?: Date;
 
   @UpdateDateColumn()
-  updatedDate: Date;
+  updatedDate?: Date;
 
   @AutoMap()
   @ManyToOne(() => User, user => user.questions)
-  createdBy: User;
+  createdBy?: User;
 
   // options: Array<Option>;
 

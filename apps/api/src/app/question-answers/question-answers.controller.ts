@@ -11,7 +11,6 @@ export class QuestionAnswersController {
     private readonly questionAnswersService: QuestionAnswersService,
     @InjectMapper() private readonly mapper: Mapper,
   ) {
-    mapper.createMap(QuestionAnswerDto, QuestionAnswer);
   }
 
   @Post()
