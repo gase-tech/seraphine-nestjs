@@ -36,7 +36,6 @@ export class UsersService {
 
   updateOne(id: number, user: User): Observable<UpdateResult> {
     delete user.password;
-    delete user.email;
 
     return from(this.usersRepository.update(id, user));
   }
