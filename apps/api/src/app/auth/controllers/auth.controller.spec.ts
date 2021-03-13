@@ -1,34 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../../users/models/user.entity';
-import { UserModule } from '../../users/user.module';
-import { JwtUtilsModule } from '../jwt-utils/jwt-utils.module';
+import { of } from 'rxjs';
+import { LoginDto } from '../models/login.dto';
 import { AuthService } from '../services/auth.service';
 import { AuthController } from './auth.controller';
-
-export type MockType<T> = {
-  [P in keyof T]?: jest.Mock<{}>;
-};
-
-export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(() => ({
-  findOne: jest.fn(entity => entity),
-}));
+import DoneCallback = jest.DoneCallback;
 
 describe('AuthController', () => {
   let controller: AuthController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [JwtUtilsModule],
       controllers: [AuthController],
       providers: [
         {
-          provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          provide: AuthService,
+          useFactory: jest.fn(() => ({login: () => of(null)})),
         },
-        AuthService,
-      ]
+      ],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
@@ -36,5 +24,14 @@ describe('AuthController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  xit('should login method validate loginDto correctly', async (done: DoneCallback) => {
+    const invalidLoginDto: LoginDto = {username: null, password: null, email: 'invalid-email'};
+    // TODO: jest ile bir observable'dan throw edilen hata nasil yakalanir???
+    controller.login(invalidLoginDto).subscribe(loginResource => {
+      expect(loginResource).not.toBeDefined();
+      done();
+    });
   });
 });
