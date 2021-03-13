@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
-import { JwtUtilsService } from "../jwt-utils/jwt-utils.service";
-import { UsersService } from "../../users/services/users.service";
-import { LoginDto } from "../models/login.dto";
-import { LoginResource } from "../models/login.resource";
+import { Injectable } from '@nestjs/common';
+import { Observable, throwError } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { UsersService } from '../../users/services/users.service';
+import { JwtUtilsService } from '../jwt-utils/jwt-utils.service';
+import { LoginDto } from '../models/login.dto';
+import { LoginResource } from '../models/login.resource';
 
 @Injectable()
 export class AuthService {
@@ -16,12 +16,12 @@ export class AuthService {
       switchMap(validatedUser => {
         if (validatedUser) {
           return this.jwtUtilsService.generateJWT(validatedUser).pipe(
-            map(jwt => ({ access_token: jwt }))
+            map(jwt => ({access_token: jwt})),
           );
         } else {
-          throw Error("User Validation Error");
+          return throwError(new Error('User Validation Error'));
         }
-      })
+      }),
     );
   }
 }
