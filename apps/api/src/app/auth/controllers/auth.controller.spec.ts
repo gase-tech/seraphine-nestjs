@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { AuthController } from './auth.controller';
 import DoneCallback = jest.DoneCallback;
 
-describe('AuthController', () => {
+xdescribe('AuthController', () => {
   let controller: AuthController;
 
   beforeEach(async () => {
