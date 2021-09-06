@@ -13,8 +13,8 @@ describe('SessionsService', () => {
         SessionsService,
         {
           provide: getRepositoryToken(Session),
-          useValue: Repository
-        }
+          useValue: Repository,
+        },
       ],
     }).compile();
 

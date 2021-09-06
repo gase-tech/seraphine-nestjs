@@ -8,6 +8,6 @@ export class CreateQuestionDto {
   @AutoMap()
   text: string;
 
-  @AutoMap(() => UserDto)
+  @AutoMap({typeFn: () => UserDto})
   createdBy: UserDto;
 }

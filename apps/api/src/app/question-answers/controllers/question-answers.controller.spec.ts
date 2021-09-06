@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { QuestionAnswersController } from './question-answers.controller';
-import { QuestionAnswersService } from './question-answers.service';
+import { QuestionAnswersService } from '../services/question-answers.service';
 
 xdescribe('QuestionAnswersController', () => {
   let controller: QuestionAnswersController;

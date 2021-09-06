@@ -1,8 +1,8 @@
-import { AutoMap } from "@automapper/classes";
+import { AutoMap } from '@automapper/classes';
 import { CreateQuestionDto } from '../../questions/dto/create-question.dto';
 
 export class QuestionAnswerDto {
-  @AutoMap(() => CreateQuestionDto)
+  @AutoMap({typeFn: () => CreateQuestionDto})
   question: CreateQuestionDto;
 
   @AutoMap()

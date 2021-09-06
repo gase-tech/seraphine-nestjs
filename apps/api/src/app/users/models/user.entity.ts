@@ -1,21 +1,12 @@
-import { AutoMap } from "@automapper/classes";
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  VersionColumn,
-} from "typeorm";
-import { Question } from "../../questions/entities/question.entity";
-import { Session } from "../../sessions/models/entity/session.entity";
+import { AutoMap } from '@automapper/classes';
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { Question } from '../../questions/entities/question.entity';
+import { Session } from '../../sessions/models/entity/session.entity';
 
 @Entity()
 export class User {
   @AutoMap()
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @AutoMap()

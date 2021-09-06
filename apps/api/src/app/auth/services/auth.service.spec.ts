@@ -58,7 +58,7 @@ describe('AuthService valid user tests', () => {
 
   it('should be logged in successfully', (done: DoneCallback) => {
     const mockLoginDto = generateMockLoginDto();
-    service.login(mockLoginDto).subscribe(loginResource => {
+    service.login(mockLoginDto).subscribe((loginResource) => {
       expect(loginResource).toBeDefined();
       expect(loginResource.access_token).toBe(mockJWTToken);
       done();

@@ -1,18 +1,14 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { from, Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
-import { DeleteResult, Repository, UpdateResult } from "typeorm";
-import { JwtUtilsService } from "../../auth/jwt-utils/jwt-utils.service";
-import { User } from "../models/user.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { JwtUtilsService } from '../../auth/jwt-utils/jwt-utils.service';
+import { User } from '../models/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
-    private readonly jwtUtilsService: JwtUtilsService
-  ) {
-  }
+  constructor(@InjectRepository(User) private usersRepository: Repository<User>, private readonly jwtUtilsService: JwtUtilsService) {}
 
   findAll(): Observable<Array<User>> {
     return from(this.usersRepository.find());
@@ -51,10 +47,8 @@ export class UsersService {
 
   validateUser(username: string, password: string): Observable<User> {
     return this.findOneByUsername(username).pipe(
-      switchMap(user => {
-        return this.jwtUtilsService.comparePasswords(password, user.password).pipe(
-          map(isMatched => isMatched ? user : null)
-        );
+      switchMap((user) => {
+        return this.jwtUtilsService.comparePasswords(password, user.password).pipe(map((isMatched) => (isMatched ? user : null)));
       })
     );
   }

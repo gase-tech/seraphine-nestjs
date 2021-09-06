@@ -17,9 +17,9 @@ describe('JwtUtilsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PassportModule, JwtModule.register({secret: mockSecret})],
+      imports: [PassportModule, JwtModule.register({ secret: mockSecret })],
       providers: [
-        {provide: JWT_MODULE_OPTIONS, useValue: {secret: mockSecret}}, // ALLAH BUNUN BELASINI VERSIN 1 SAAT ARADIM BUNU
+        { provide: JWT_MODULE_OPTIONS, useValue: { secret: mockSecret } }, // ALLAH BUNUN BELASINI VERSIN 1 SAAT ARADIM BUNU
         JwtService,
         JwtUtilsService,
       ],
@@ -42,7 +42,7 @@ describe('JwtUtilsService', () => {
 
   it('should generate JWT token with valid payload', (done) => {
     jwtUtilsService.generateJWT(mockUser).subscribe((jwtToken: string) => {
-      const decodedToken = jwtService.decode(jwtToken, {json: true}) as { user: User };
+      const decodedToken = jwtService.decode(jwtToken, { json: true }) as { user: User };
       expect(decodedToken.user).toBeDefined();
       expect(decodedToken.user.username).toBe(mockUser.username);
       expect(decodedToken.user.password).toBe(mockUser.password);

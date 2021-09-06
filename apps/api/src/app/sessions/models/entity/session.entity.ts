@@ -1,25 +1,15 @@
-import { AutoMap } from "@automapper/classes";
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  VersionColumn,
-} from "typeorm";
-import { User } from "../../../users/models/user.entity";
-import { QuestionAnswer } from "../../../question-answers/entities/question-answer.entity";
+import { AutoMap } from '@automapper/classes';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { QuestionAnswer } from '../../../question-answers/entities/question-answer.entity';
+import { User } from '../../../users/models/user.entity';
 
 @Entity()
 export class Session {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn()
@@ -33,27 +23,27 @@ export class Session {
 
   // @AutoMap() // TODO: uncomment this, typeorm'de audit nasil yapilir arastirilacak.
   @AutoMap()
-  @ManyToOne(() => User, user => user.sessions)
+  @ManyToOne(() => User, (user) => user.sessions)
   createdBy: User;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   meetingStartTime: Date;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   meetingEndTime: Date;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   sessionStartTime: Date;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   sessionEndTime: Date;
 
   @AutoMap()
-  @Column({nullable: true})
+  @Column({ nullable: true })
   duration: number;
 
   // TODO: uncomment this after if createdBy ManyToOne relation is successful

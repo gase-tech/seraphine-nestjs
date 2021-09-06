@@ -56,7 +56,16 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "defaultConfiguration": "production"
           }
         },
         "serve": {
@@ -68,8 +77,12 @@
           "configurations": {
             "production": {
               "browserTarget": "web:build:production"
+            },
+            "development": {
+              "browserTarget": "web:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -162,7 +175,9 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api:build"
+            "buildTarget": "api:build",
+            "inspect": true,
+            "port": 7777
           }
         },
         "lint": {

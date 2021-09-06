@@ -39,10 +39,10 @@ describe('UsersService', () => {
   });
 
   it('should findAll return all data', (done: DoneCallback) => {
-    const mockData = of([{username: 'user123'}, {username: 'user545'}, {username: 'user867'}]) as Observable<Array<User>>;
+    const mockData = of([{ username: 'user123' }, { username: 'user545' }, { username: 'user867' }]) as Observable<Array<User>>;
     jest.spyOn(repo, 'find').mockResolvedValueOnce(mockData.toPromise());
 
-    service.findAll().subscribe(allUsers => {
+    service.findAll().subscribe((allUsers) => {
       expect(allUsers).toHaveLength(3);
       done();
     });
@@ -97,7 +97,7 @@ describe('UsersService', () => {
     jest.spyOn(repo, 'update').mockResolvedValueOnce(null);
 
     service.updateOne(mockUser.id, mockUser).subscribe(() => {
-      const noSensitiveValueMockUser = {...mockUser};
+      const noSensitiveValueMockUser = { ...mockUser };
       delete noSensitiveValueMockUser.password;
       expect(repo.update).toHaveBeenCalledWith(mockUser.id, noSensitiveValueMockUser);
       done();

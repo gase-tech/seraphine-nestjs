@@ -1,18 +1,11 @@
-import { AutoMap } from "@automapper/classes";
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { User } from "../../users/models/user.entity";
+import { AutoMap } from '@automapper/classes';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { User } from '../../users/models/user.entity';
 
 @Entity()
 export class Question {
   @AutoMap()
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id?: number;
 
   @AutoMap()
@@ -26,7 +19,7 @@ export class Question {
   updatedDate?: Date;
 
   @AutoMap()
-  @ManyToOne(() => User, user => user.questions)
+  @ManyToOne(() => User, (user) => user.questions)
   createdBy?: User;
 
   // options: Array<Option>;

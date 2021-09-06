@@ -14,7 +14,7 @@ xdescribe('AuthController', () => {
       providers: [
         {
           provide: AuthService,
-          useFactory: jest.fn(() => ({login: () => of(null)})),
+          useFactory: jest.fn(() => ({ login: () => of(null) })),
         },
       ],
     }).compile();
@@ -27,9 +27,9 @@ xdescribe('AuthController', () => {
   });
 
   xit('should login method validate loginDto correctly', async (done: DoneCallback) => {
-    const invalidLoginDto: LoginDto = {username: null, password: null, email: 'invalid-email'};
+    const invalidLoginDto: LoginDto = { username: null, password: null, email: 'invalid-email' };
     // TODO: jest ile bir observable'dan throw edilen hata nasil yakalanir???
-    controller.login(invalidLoginDto).subscribe(loginResource => {
+    controller.login(invalidLoginDto).subscribe((loginResource) => {
       expect(loginResource).not.toBeDefined();
       done();
     });

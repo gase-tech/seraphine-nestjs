@@ -1,18 +1,14 @@
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/types';
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { Question } from './entities/question.entity';
-import { QuestionsService } from './questions.service';
-import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
+import { Question } from '../entities/question.entity';
+import { QuestionsService } from '../services/questions.service';
+import { CreateQuestionDto } from '../dto/create-question.dto';
+import { UpdateQuestionDto } from '../dto/update-question.dto';
 
 @Controller('questions')
 export class QuestionsController {
-  constructor(
-    private readonly questionsService: QuestionsService,
-    @InjectMapper() private readonly mapper: Mapper,
-  ) {
-  }
+  constructor(private readonly questionsService: QuestionsService, @InjectMapper() private readonly mapper: Mapper) {}
 
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {

@@ -1,15 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { from } from "rxjs";
-import { Repository } from "typeorm";
-import { Question } from "./entities/question.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { from } from 'rxjs';
+import { Repository } from 'typeorm';
+import { Question } from '../entities/question.entity';
 
 @Injectable()
 export class QuestionsService {
-  constructor(
-    @InjectRepository(Question)
-    private readonly questionRepository: Repository<Question>
-  ) {}
+  constructor(@InjectRepository(Question) private readonly questionRepository: Repository<Question>) {}
 
   create(question: Question) {
     return from(this.questionRepository.save(question));

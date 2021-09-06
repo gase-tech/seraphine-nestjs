@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { QuestionAnswer } from './entities/question-answer.entity';
+import { QuestionAnswer } from '../entities/question-answer.entity';
 import { QuestionAnswersService } from './question-answers.service';
 
 describe('QuestionAnswersService', () => {
@@ -13,8 +13,8 @@ describe('QuestionAnswersService', () => {
         QuestionAnswersService,
         {
           provide: getRepositoryToken(QuestionAnswer),
-          useValue: Repository
-        }
+          useValue: Repository,
+        },
       ],
     }).compile();
 

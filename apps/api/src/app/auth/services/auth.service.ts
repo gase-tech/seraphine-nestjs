@@ -8,20 +8,17 @@ import { LoginResource } from '../models/login.resource';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwtUtilsService: JwtUtilsService) {
-  }
+  constructor(private usersService: UsersService, private jwtUtilsService: JwtUtilsService) {}
 
   login(loginDto: LoginDto): Observable<LoginResource> {
     return this.usersService.validateUser(loginDto.username, loginDto.password).pipe(
-      switchMap(validatedUser => {
+      switchMap((validatedUser) => {
         if (validatedUser) {
-          return this.jwtUtilsService.generateJWT(validatedUser).pipe(
-            map(jwt => ({access_token: jwt})),
-          );
+          return this.jwtUtilsService.generateJWT(validatedUser).pipe(map((jwt) => ({ access_token: jwt })));
         } else {
           return throwError(new Error('User Validation Error'));
         }
-      }),
+      })
     );
   }
 }

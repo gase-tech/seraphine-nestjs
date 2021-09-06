@@ -1,12 +1,12 @@
-import { AutoMap } from "@automapper/classes";
-import { UserDto } from "../../users/models/user.dto";
-import { QuestionAnswerDto } from "../../question-answers/dto/question-answer.dto";
+import { AutoMap } from '@automapper/classes';
+import { UserDto } from '../../users/models/user.dto';
+import { QuestionAnswerDto } from '../../question-answers/dto/question-answer.dto';
 
 export class CreateSessionDto {
   @AutoMap()
   description: string;
 
-  @AutoMap(() => UserDto)
+  @AutoMap({typeFn: () => UserDto})
   createdBy: UserDto;
 
   @AutoMap()
@@ -24,6 +24,6 @@ export class CreateSessionDto {
   @AutoMap()
   duration: number;
 
-  @AutoMap(() => QuestionAnswerDto)
+  @AutoMap({typeFn: () => QuestionAnswerDto})
   questionAnswers: QuestionAnswerDto[];
 }
